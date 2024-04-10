@@ -15,11 +15,11 @@ output "vpc_id" {
     value = aws_vpc.myvpc.id
 }
 output "public_subnet_ids" {
-    value = aws_subnet.publicsubnet[*].id
+    value = aws_subnet.publicsubnet[count.index].id
 }
 output "private_subnet_ids" {
-    value = aws_subnet.privatesubnet[*].id
+    value = aws_subnet.privatesubnet[count.index].id
 }
 output "dbsubnet_subnet_ids" {
-    value = aws_subnet.dbsubnet[*].id
+    value = aws_subnet.dbsubnet[count.index].id
 }
