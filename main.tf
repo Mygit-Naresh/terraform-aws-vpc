@@ -3,7 +3,7 @@ resource "aws_vpc" "myvpc" {
  
    tags = merge(local.commontag, 
        { 
-        Name = "${local.name}-VPC"
+        Name = "${local.name}-vpc"
         Create_date_time = local.time
       })
     
@@ -12,7 +12,7 @@ resource "aws_internet_gateway" "myigw" {
   vpc_id = aws_vpc.myvpc.id
    tags =  merge(local.commontag, 
        { 
-        Name = "${local.name}-IGW"
+        Name = "${local.name}-igw"
         Create_date_time = local.time
       })
   }   
@@ -25,7 +25,7 @@ resource "aws_subnet" "publicsubnet" {
   enable_resource_name_dns_a_record_on_launch = true
   tags = merge(local.commontag, 
        { 
-        Name = "${local.name}-PUB-${var.availability_zone[count.index]}"
+        Name = "${local.name}-pub-${var.availability_zone[count.index]}"
         Create_date_time = local.time
       })
 }
@@ -36,7 +36,7 @@ resource "aws_subnet"  "privatesubnet" {
      availability_zone = var.availability_zone[count.index]
       tags = merge(local.commontag, 
        { 
-        Name = "${local.name}-PRIVATE-${var.availability_zone[count.index]}"
+        Name = "${local.name}-private-${var.availability_zone[count.index]}"
         Create_date_time = local.time
       })
 }
@@ -47,7 +47,7 @@ resource "aws_subnet"  "dbsubnet" {
      availability_zone = var.availability_zone[count.index]
      tags = merge(local.commontag, 
        { 
-        Name = "${local.name}-DATABASE-${var.availability_zone[count.index]}"
+        Name = "${local.name}-database-${var.availability_zone[count.index]}"
         Create_date_time = local.time
       })
 }
@@ -55,7 +55,7 @@ resource "aws_eip" "eip" {
  domain   = "vpc"
  tags = merge(local.commontag, 
        { 
-        Name = "${local.name}-ELASTIC_IP"
+        Name = "${local.name}-elastic-ip"
         Create_date_time = local.time
       })
 }
@@ -65,7 +65,7 @@ resource "aws_nat_gateway" "nat" {
 
   tags = merge(local.commontag, 
        { 
-        Name = "${local.name}-NAT"
+        Name = "${local.name}-nat"
         Create_date_time = local.time
       })
   # To ensure proper ordering, it is recommended to add an explicit dependency
@@ -82,7 +82,7 @@ resource "aws_route_table" "public" {
   }
   tags = merge(local.commontag, 
        { 
-        Name = "${local.name}-RT-1-PUBLIC"
+        Name = "${local.name}-RT-1-PUB"
         Create_date_time = local.time
       })
 }
